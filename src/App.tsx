@@ -6,7 +6,7 @@ import { Main } from './containers/Main/Main';
 
 export const App = () => {
   return (
-    <Container>
+    <Container size={'2'}>
       <Header />
       <Routes>
         <Route path='/' element={<Main />} />

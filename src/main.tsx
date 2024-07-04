@@ -5,7 +5,7 @@ import { Theme } from '@radix-ui/themes';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <Theme appearance={'dark'}>
+  <Theme appearance={'dark'} hasBackground={false} accentColor={'teal'}>
     <BrowserRouter>
       <App />
     </BrowserRouter>

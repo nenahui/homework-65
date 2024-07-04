@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background: url('/Background.svg') center bottom / cover no-repeat;
+}
+
 .logo {
     text-decoration: none;
     color: inherit;
@@ -23,6 +27,14 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: var(--accent-indicator);
+    background-color: var(--teal-11);
     border-radius: 50px;
 }
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+

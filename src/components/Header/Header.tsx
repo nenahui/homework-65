@@ -4,9 +4,9 @@ import { Link, NavLink } from 'react-router-dom';
 export const Header = () => {
   return (
     <header>
-      <Flex justify={'between'} align={'center'}>
+      <Flex justify={'between'} align={'center'} mb={'1'}>
         <Link to={'/'} className={'logo'}>
-          <Heading>Quotes</Heading>
+          <Heading>Static Pages</Heading>
         </Link>
 
         <nav>
@@ -19,6 +19,9 @@ export const Header = () => {
             </TabNav.Link>
             <TabNav.Link asChild>
               <NavLink to={'/pages/contacts'}>Contacts</NavLink>
+            </TabNav.Link>
+            <TabNav.Link asChild>
+              <NavLink to={'/pages/admin'}>Admin</NavLink>
             </TabNav.Link>
           </TabNav.Root>
         </nav>
