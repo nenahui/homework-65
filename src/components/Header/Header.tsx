@@ -15,10 +15,10 @@ export const Header = () => {
               <NavLink to={'/'}>Home</NavLink>
             </TabNav.Link>
             <TabNav.Link asChild>
-              <NavLink to={'/about'}>About</NavLink>
+              <NavLink to={'/pages/about'}>About</NavLink>
             </TabNav.Link>
             <TabNav.Link asChild>
-              <NavLink to={'/contacts'}>Contacts</NavLink>
+              <NavLink to={'/pages/contacts'}>Contacts</NavLink>
             </TabNav.Link>
           </TabNav.Root>
         </nav>
