@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Button,
   Flex,
@@ -7,7 +7,7 @@ import {
   TextArea,
   TextField,
 } from '@radix-ui/themes';
-import { PageMutation } from '../../types';
+import { Page, PageMutation } from '../../types';
 import axiosApi from '../../axiosApi';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,6 +20,26 @@ const initialState: PageMutation = {
 export const PageForm = () => {
   const navigate = useNavigate();
   const [pageMutation, setPageMutation] = useState(initialState);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const fetchPageData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const { page } = pageMutation;
+      const { data } = await axiosApi.get<Page>(`/pages/${page}.json`);
+      if (data)
+        setPageMutation({
+          ...data,
+          page: page,
+        });
+    } finally {
+      setIsLoading(false);
+    }
+  }, [pageMutation.page]);
+
+  useEffect(() => {
+    void fetchPageData();
+  }, [fetchPageData]);
 
   const onFieldChange = (
     event: React.ChangeEvent<
@@ -68,6 +88,7 @@ export const PageForm = () => {
           required
           value={pageMutation.page}
           onValueChange={onCategoryChange}
+          disabled={isLoading}
         >
           <Select.Trigger />
           <Select.Content>
@@ -85,6 +106,7 @@ export const PageForm = () => {
           name={'title'}
           value={pageMutation.title}
           onChange={onFieldChange}
+          disabled={isLoading}
         />
         <TextArea
           placeholder='Content…'
@@ -92,6 +114,7 @@ export const PageForm = () => {
           name={'content'}
           value={pageMutation.content}
           onChange={onFieldChange}
+          disabled={isLoading}
         />
 
         <Button variant={'surface'} onSubmit={onFormSubmit}>
