@@ -1,0 +1,28 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.logo {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.link {
+    text-decoration: none;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.active::after {
+    content: '';
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--accent-indicator);
+    border-radius: 50px;
+}
