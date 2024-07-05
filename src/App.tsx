@@ -5,11 +5,10 @@ import { Header } from './components/Header/Header';
 import { Main } from './containers/Main/Main';
 import { useCallback, useEffect, useState } from 'react';
 import axiosApi from './axiosApi';
+import { PagesKeys } from './types';
 
 export const App = () => {
-  const [pagesName, setPagesName] = useState<{
-    [key: string]: { title: string };
-  }>({});
+  const [pagesName, setPagesName] = useState<PagesKeys>({});
 
   const fetchPagesName = useCallback(async () => {
     try {

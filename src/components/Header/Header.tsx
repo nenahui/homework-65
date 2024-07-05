@@ -1,11 +1,10 @@
 import { Box, Heading, TabNav } from '@radix-ui/themes';
 import { Link, NavLink } from 'react-router-dom';
 import React from 'react';
+import { PagesKeys } from '../../types';
 
 interface Props {
-  pages: {
-    [key: string]: { title: string };
-  };
+  pages: PagesKeys;
 }
 
 export const Header: React.FC<Props> = ({ pages }) => {
