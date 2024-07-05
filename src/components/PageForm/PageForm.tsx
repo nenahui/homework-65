@@ -20,7 +20,19 @@ const initialState: PageMutation = {
 export const PageForm = () => {
   const navigate = useNavigate();
   const [pageMutation, setPageMutation] = useState(initialState);
+  const [pages, setPages] = useState<string[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const fetchPages = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await axiosApi.get('/pages.json');
+      const pageNames = Object.keys(data);
+      setPages(pageNames);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   const fetchPageData = useCallback(async () => {
     try {
@@ -38,8 +50,9 @@ export const PageForm = () => {
   }, [pageMutation.page]);
 
   useEffect(() => {
+    void fetchPages();
     void fetchPageData();
-  }, [fetchPageData]);
+  }, [fetchPages, fetchPageData]);
 
   const onFieldChange = (
     event: React.ChangeEvent<
@@ -94,9 +107,12 @@ export const PageForm = () => {
           <Select.Content>
             <Select.Group>
               <Select.Label>Pages</Select.Label>
-              <Select.Item value='about'>About</Select.Item>
-              <Select.Item value='contacts'>Contacts</Select.Item>
-              <Select.Item value='home'>Home</Select.Item>
+              {pages &&
+                pages.map((page) => (
+                  <Select.Item key={page} value={page}>
+                    {page.charAt(0).toUpperCase() + page.slice(1)}
+                  </Select.Item>
+                ))}
             </Select.Group>
           </Select.Content>
         </Select.Root>

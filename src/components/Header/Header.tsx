@@ -1,31 +1,36 @@
-import { Flex, Heading, TabNav } from '@radix-ui/themes';
+import { Box, Heading, TabNav } from '@radix-ui/themes';
 import { Link, NavLink } from 'react-router-dom';
+import React from 'react';
 
-export const Header = () => {
+interface Props {
+  pages: {
+    [key: string]: { title: string };
+  };
+}
+
+export const Header: React.FC<Props> = ({ pages }) => {
   return (
     <header>
-      <Flex justify={'between'} align={'center'} mb={'1'}>
+      <Box mb={'2'}>
         <Link to={'/'} className={'logo'}>
-          <Heading>Static Pages</Heading>
+          <Heading align={'center'}>Static Pages</Heading>
         </Link>
 
         <nav>
-          <TabNav.Root>
-            <TabNav.Link asChild>
-              <NavLink to={'/'}>Home</NavLink>
-            </TabNav.Link>
-            <TabNav.Link asChild>
-              <NavLink to={'/pages/about'}>About</NavLink>
-            </TabNav.Link>
-            <TabNav.Link asChild>
-              <NavLink to={'/pages/contacts'}>Contacts</NavLink>
-            </TabNav.Link>
+          <TabNav.Root wrap={'wrap'}>
+            {Object.keys(pages).map((pageKey) => (
+              <TabNav.Link key={pageKey} asChild>
+                <NavLink to={`/pages/${pageKey}`}>
+                  {pages[pageKey].title}
+                </NavLink>
+              </TabNav.Link>
+            ))}
             <TabNav.Link asChild>
               <NavLink to={'/pages/admin'}>Admin</NavLink>
             </TabNav.Link>
           </TabNav.Root>
         </nav>
-      </Flex>
+      </Box>
     </header>
   );
 };

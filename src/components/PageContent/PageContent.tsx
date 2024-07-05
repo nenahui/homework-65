@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading, Text } from '@radix-ui/themes';
+import { AspectRatio, Box, Heading, Text } from '@radix-ui/themes';
 import { Page } from '../../types';
 import { useParams } from 'react-router-dom';
 import { PageForm } from '../PageForm/PageForm';
@@ -25,7 +25,23 @@ export const PageContent: React.FC<Props> = ({ data }) => {
   return (
     <Box>
       <Heading as={'h3'}>{data?.title}</Heading>
-      <Text as={'p'}>{data?.content}</Text>
+      <Text as={'p'} mb={'4'}>
+        {data?.content}
+      </Text>
+      {data.img && (
+        <AspectRatio ratio={16 / 9}>
+          <img
+            src={data?.img}
+            alt={data?.title}
+            style={{
+              objectFit: 'cover',
+              width: '100%',
+              height: '100%',
+              borderRadius: 'var(--radius-5)',
+            }}
+          />
+        </AspectRatio>
+      )}
     </Box>
   );
 };

@@ -12,11 +12,13 @@ export const Main = () => {
 
   const fetchPageData = useCallback(async () => {
     try {
-      setIsLoading(true);
-      const { data } = await axiosApi.get<Page>(
-        pageName ? `/pages/${pageName}.json` : '/pages/home.json'
-      );
-      setData(data);
+      if (pageName !== 'admin') {
+        setIsLoading(true);
+        const { data } = await axiosApi.get<Page>(
+          pageName ? `/pages/${pageName}.json` : '/pages/home.json'
+        );
+        if (data) setData(data);
+      }
     } catch (error) {
       console.error('Error fetching page data:', error);
       throw error;
